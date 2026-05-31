@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serving | A Practice Series</title>
+  <meta name="description" content="Serving: a four-week practice series for community groups and individual reflection.">
+  <style>
+    :root{--ink:#1f211d;--muted:#68635a;--paper:#f7f2e9;--line:#ded3c2;--gold:#a96f2a;--shadow:0 20px 50px rgba(31,33,29,.12);--max:1240px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fbf8f1,var(--paper));line-height:1.65;font-size:18px}
+    a{color:#12657d;text-decoration-thickness:.08em;text-underline-offset:.18em}
+    .wrap{width:min(var(--max),calc(100% - 32px));margin-inline:auto}
+    .hero{padding:44px 0 28px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,360px);gap:42px;align-items:center}
+    .eyebrow{letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;font-size:.78rem}
+    .hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(3rem,8vw,6rem);line-height:.86;margin:.18em 0 .08em;font-weight:500;letter-spacing:-.055em}
+    .subtitle{font-size:clamp(1.1rem,2vw,1.35rem);color:var(--muted);max-width:650px}
+    .cover-frame{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#ece5d8;min-height:220px}
+    .cover{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;background:#ddd}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700}
+    .button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start;padding-bottom:18px}
+    .quick-tools{position:sticky;top:8px;z-index:6;display:flex;flex-wrap:wrap;background:rgba(247,242,233,.96);border:1px solid var(--line);border-radius:12px;padding:10px;gap:8px;align-items:center}
+    .quick-tools label{font-size:.86rem;font-weight:700;color:#5b5346}
+    .quick-tools select{flex:1;min-width:180px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}
+    .quick-tools button{padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font:inherit;font-weight:700}
+    .reader-fallback{width:100%;font-size:.92rem;color:#5b5346}
+    .reader-fallback a{margin-right:8px}
+    .toc-shell{position:sticky;top:14px;z-index:4}
+    .toc{background:rgba(247,242,233,.94);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;padding:14px}
+    .toc h2{font-size:1rem;font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2px 0 10px}
+    .toc a{display:block;text-decoration:none;color:var(--ink);font-size:.93rem;padding:7px 10px;border-radius:10px}
+    .toc a:hover,.toc a:focus-visible{background:#fff}
+    .section{padding:22px 0;border-bottom:1px solid var(--line)}
+    .card{background:rgba(255,250,241,.78);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,42px);box-shadow:0 10px 30px rgba(31,33,29,.06)}
+    h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4.5vw,3.5rem);line-height:1;margin:0 0 22px;letter-spacing:-.035em}
+    h3{font-size:1.25rem;margin:34px 0 10px}
+    blockquote{margin:0 0 28px;padding:22px 24px;border-left:5px solid var(--gold);background:#fff;border-radius:0 16px 16px 0;color:#332f28;font-family:Georgia,"Times New Roman",serif;font-size:1.08rem}
+    .quote-by{display:block;margin-top:10px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.95rem;color:var(--muted);font-style:normal}
+    ul,ol{padding-left:1.35rem}
+    li{margin:.4rem 0}
+    .questions li{margin-bottom:.75rem}
+    .week-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+    .complete-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:.95rem}
+    .week-complete{accent-color:#2f7d32}
+    .print-week{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit}
+    .is-complete h2{color:#2f7d32}
+    .scripture-details{margin:14px 0 18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 12px}
+    .scripture-details summary{cursor:pointer;font-weight:700;padding:10px 0;list-style:none}
+    .section-nav{display:flex;justify-content:flex-end;margin-top:24px}
+    .footer{padding:34px 0 60px;color:var(--muted);font-size:.95rem}
+    @media (max-width:980px){body{font-size:17px}.hero-grid{grid-template-columns:1fr}.layout{grid-template-columns:1fr;gap:14px}.quick-tools{top:0}.toc-shell{position:sticky;top:0}.toc{border-radius:0;border-left:0;border-right:0;padding:8px 10px;overflow-x:auto}.toc h2{display:none}.toc nav{display:flex;gap:8px}.toc a{display:inline-flex;white-space:nowrap;padding:8px 12px;background:#fff}.week-tools{display:grid;grid-template-columns:1fr;gap:8px}.complete-pill,.print-week{width:100%;justify-content:center}.hero{padding-top:30px}}
+    @media print{body{background:#fff;font-size:12pt}.hero,.toc-shell,.footer,.section-nav,.week-tools,.quick-tools{display:none !important}.card{box-shadow:none;border-color:#d7d7d7;padding:14pt}.section{padding:0;border:0}body.print-week-1 .section,body.print-week-2 .section,body.print-week-3 .section,body.print-week-4 .section{display:none}body.print-week-1 #week-1,body.print-week-2 #week-2,body.print-week-3 #week-3,body.print-week-4 #week-4{display:block}}
+  </style>
+</head>
+<body>
+  <header class="hero wrap" id="top">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Serving</div>
+        <h1>Practice</h1>
+        <p class="subtitle">A four-week practice series on serving in the way of Jesus.</p>
+        <div class="cta-row">
+          <a class="button primary" href="#week-1">Start Week One</a>
+          <a class="button" href="#how-to-use">How to Use This Guide</a>
+          <a class="button" href="catalog.html">Practice Series Catalog</a>
+        </div>
+      </div>
+      <figure class="cover-frame">
+        <img class="cover" src="serving-Booklet.jpg" alt="Serving booklet cover">
+      </figure>
+    </div>
+  </header>
+
+  <div class="layout wrap">
+    <div class="quick-tools" aria-label="Jump and print tools">
+      <label for="quick-jump-select">Jump to</label>
+      <select id="quick-jump-select">
+        <option value="#intro">Introduction</option>
+        <option value="#how-to-use">How to Use</option>
+        <option value="#week-1">Week 1</option>
+        <option value="#week-2">Week 2</option>
+        <option value="#week-3">Week 3</option>
+        <option value="#week-4">Week 4</option>
+      </select>
+      <button type="button" id="quick-jump-go">Go</button>
+      <label for="quick-print-select">Print</label>
+      <select id="quick-print-select">
+        <option value="week-1">Week 1</option>
+        <option value="week-2">Week 2</option>
+        <option value="week-3">Week 3</option>
+        <option value="week-4">Week 4</option>
+      </select>
+      <button type="button" id="quick-print-go">Print Week</button>
+      <p class="reader-fallback">Open Printable Pages: <a href="printables/serving-week-1-print.html">Week 1</a><a href="printables/serving-week-2-print.html">Week 2</a><a href="printables/serving-week-3-print.html">Week 3</a><a href="printables/serving-week-4-print.html">Week 4</a></p>
+    </div>
+
+    <aside class="toc-shell">
+      <div class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <nav>
+          <a href="#intro">Introduction</a>
+          <a href="#how-to-use">How to Use</a>
+          <a href="#week-1">Week 1</a>
+          <a href="#week-2">Week 2</a>
+          <a href="#week-3">Week 3</a>
+          <a href="#week-4">Week 4</a>
+        </nav>
+      </div>
+    </aside>
+
+    <main>
+      <section class="section" id="intro"><div class="wrap card">
+        <h2>Introduction</h2>
+        <blockquote>"We believe that God has given every believer in Jesus at least one gift to be used for building up the church and for blessing the world... beyond the empowering and release of the gifts of the Spirit, there is simply a need to serve one another in basic ways within the body of Christ as Jesus did." <span class="quote-by">York Alliance Family Values, Serving the Body</span></blockquote>
+        <p>Serving one another seems to be the path to greatness in the way of Jesus. Over these four weeks, we will pursue serving as a key pathway to maturity in Christ.</p>
+        <p>Jesus repeatedly placed service at the center of kingdom life. From washing feet to teaching about greatness, he called his disciples to become servants of all.</p>
+        <blockquote>"If I then, your Lord and Teacher, have washed your feet, you also ought to wash one another's feet." <span class="quote-by"><a href="https://www.bible.com/bible/59/JHN.13.14-JHN.13.15.ESV" target="_blank" rel="noopener">John 13:14-15</a></span></blockquote>
+        <blockquote>"Anyone who wants to be first must be the very last, and the servant of all." <span class="quote-by"><a href="https://www.bible.com/bible/59/MRK.9.35.ESV" target="_blank" rel="noopener">Mark 9:35</a></span></blockquote>
+        <div class="section-nav"><a class="button" href="#how-to-use">Next Section</a></div>
+      </div></section>
+
+      <section class="section" id="how-to-use"><div class="wrap card">
+        <h2>How to Use This Guide</h2>
+        <p>The exercises in this booklet stretch over four weeks and align with Sunday teachings. You can find teachings at <a href="https://www.yorkalliance.org/sermons">yorkalliance.org/sermons</a>.</p>
+        <p>Transformation happens through biblical teaching, community, and practice. If you are not connected to a Community Group, you are encouraged to connect at <a href="https://www.yorkalliance.org/groups">yorkalliance.org/groups</a>.</p>
+        <p>Recommended resources include <em>The Active Life</em> by Parker J. Palmer, <em>Celebration of Discipline</em> by Richard Foster, and <em>Improving Your Serve</em> by Charles Swindoll.</p>
+        <ul>
+          <li>Week One: How to be Great</li>
+          <li>Week Two: Gifts and Grace</li>
+          <li>Week Three: Growing Up in Christ</li>
+          <li>Week Four: Washing Feet</li>
+        </ul>
+        <div class="section-nav"><a class="button primary" href="#week-1">Next Week</a></div>
+      </div></section>
+
+      <section class="section" id="week-1"><div class="wrap card">
+        <div class="week-tools">
+          <label class="complete-pill"><input class="week-complete" type="checkbox" data-week="serving-week-1"> Mark Week 1 as Completed</label>
+          <button class="print-week" type="button" data-print-week="week-1">Print Week 1</button>
+        </div>
+        <h2>Week One: How to be Great</h2>
+        <blockquote>"Whoever would be great must be your servant." <span class="quote-by"><a href="https://www.bible.com/bible/59/MAT.20.26.ESV" target="_blank" rel="noopener">Matthew 20:26</a></span></blockquote>
+        <p>Jesus reframes greatness through service. The path to the top in the kingdom begins and ends at the bottom.</p>
+        <h3>Discuss in Community</h3>
+        <p>Read <a href="https://www.bible.com/bible/59/MAT.20.20-MAT.20.28.ESV" target="_blank" rel="noopener">Matthew 20:20-28</a> and discuss:</p>
+        <ul class="questions">
+          <li>Why do you think Jesus references "the cup that I am to drink" in this moment?</li>
+          <li>How have you measured spiritual health, and how does that compare to Jesus' metric?</li>
+          <li>Do you desire to be a "great Christian"? Why?</li>
+        </ul>
+        <h3>Questions for Community</h3>
+        <ol class="questions">
+          <li>What are your initial thoughts stepping into this service practice?</li>
+          <li>What emotion surfaces when you think about living more deeply into service?</li>
+          <li>Have you had someone meet a practical need for you, or done that for others?</li>
+        </ol>
+        <h3>Individual Practice</h3>
+        <p>This week, intentionally serve someone already in your relational circle. Choose a specific act you would not naturally do otherwise, and do it quietly. Reflect on barriers, emotions, and how you sensed Jesus in the process.</p>
+        <div class="section-nav"><a class="button primary" href="#week-2">Next Week</a></div>
+      </div></section>
+
+      <section class="section" id="week-2"><div class="wrap card">
+        <div class="week-tools">
+          <label class="complete-pill"><input class="week-complete" type="checkbox" data-week="serving-week-2"> Mark Week 2 as Completed</label>
+          <button class="print-week" type="button" data-print-week="week-2">Print Week 2</button>
+        </div>
+        <h2>Week Two: Gifts and Grace</h2>
+        <blockquote>"Don't think you are better than you really are." <span class="quote-by"><a href="https://www.bible.com/bible/116/ROM.12.3.NLT" target="_blank" rel="noopener">Romans 12:3 (NLT)</a></span></blockquote>
+        <p>Everything is gift: breath, time, ability, personality, and spiritual gifting. Recognizing this helps us serve with humility rather than ego.</p>
+        <h3>Discuss in Community</h3>
+        <p>Read <a href="https://www.bible.com/bible/59/ROM.12.1-ROM.12.13.ESV" target="_blank" rel="noopener">Romans 12:1-13</a> and discuss:</p>
+        <ul class="questions">
+          <li>How do verses 3-13 connect with verses 1-2?</li>
+          <li>How does your group currently recognize that all members can participate in the Spirit's work?</li>
+          <li>What changes could help your meetings better reflect that reality?</li>
+        </ul>
+        <h3>Practice in Community</h3>
+        <p>Walk through gifting discernment together: listen, reflect, identify strengths, and discern a practical way each person can test their gifting through service.</p>
+        <h3>Individual Practice</h3>
+        <p>Use SHAPE as a guide: Spiritual gifts, Heart, Abilities/talents, Personality, and Experiences. Note overlaps and identify your next faithful step of service.</p>
+        <div class="section-nav"><a class="button primary" href="#week-3">Next Week</a></div>
+      </div></section>
+
+      <section class="section" id="week-3"><div class="wrap card">
+        <div class="week-tools">
+          <label class="complete-pill"><input class="week-complete" type="checkbox" data-week="serving-week-3"> Mark Week 3 as Completed</label>
+          <button class="print-week" type="button" data-print-week="week-3">Print Week 3</button>
+        </div>
+        <h2>Week Three: Growing Up in Christ</h2>
+        <blockquote>"People who know that they are embedded in an eternal community are both freed and empowered to become who they were born to be." <span class="quote-by">Parker J. Palmer, <em>The Active Life</em></span></blockquote>
+        <p>There is no mature, isolated Christian life. Serving one another is not optional to growth; it is one of the central means by which we are formed into Christ's likeness.</p>
+        <h3>Discuss in Community</h3>
+        <p>Read <a href="https://www.bible.com/bible/59/EPH.4.11-EPH.4.16.ESV" target="_blank" rel="noopener">Ephesians 4:11-16</a> and discuss:</p>
+        <ul class="questions">
+          <li>What does it mean to equip the saints for ministry in your context?</li>
+          <li>When did you experience the greatest growth in your spiritual journey?</li>
+          <li>What does it practically mean that we belong to one another?</li>
+        </ul>
+        <h3>Questions for Community</h3>
+        <ol class="questions">
+          <li>How are you currently serving the body, and do you sense joy and growth in it?</li>
+          <li>Is there a way you might serve this group more intentionally?</li>
+          <li>How willing are you to rearrange your schedule to meet needs?</li>
+        </ol>
+        <h3>Individual Practice</h3>
+        <p>Assess your current service posture and commit to either a new regular area of ministry or one intentional unplanned act of service this week.</p>
+        <div class="section-nav"><a class="button primary" href="#week-4">Next Week</a></div>
+      </div></section>
+
+      <section class="section" id="week-4"><div class="wrap card">
+        <div class="week-tools">
+          <label class="complete-pill"><input class="week-complete" type="checkbox" data-week="serving-week-4"> Mark Week 4 as Completed</label>
+          <button class="print-week" type="button" data-print-week="week-4">Print Week 4</button>
+        </div>
+        <h2>Week Four: Washing Feet</h2>
+        <blockquote>"As the cross is the sign of submission, so the towel is the sign of service." <span class="quote-by">Richard J. Foster, <em>Celebration of Discipline</em></span></blockquote>
+        <p>Sometimes serving is not about gifting or preference. Sometimes serving is simply about a need in front of us and willingness to become the least.</p>
+        <h3>Discuss in Community</h3>
+        <p>Read <a href="https://www.bible.com/bible/59/JHN.13.1-JHN.13.17.ESV" target="_blank" rel="noopener">John 13:1-17</a> and discuss:</p>
+        <ul class="questions">
+          <li>How do you imagine you would have felt if you were in the room when Jesus washed feet?</li>
+          <li>What are practical needs you see regularly around you?</li>
+          <li>What might a modern-day equivalent of foot washing look like?</li>
+        </ul>
+        <h3>Questions for Community</h3>
+        <ol class="questions">
+          <li>If you are not serving as much as you'd like, what gets in the way?</li>
+          <li>How do you balance miracle-focused service and ordinary hidden service?</li>
+          <li>How might you become more interruptible for spontaneous service?</li>
+        </ol>
+        <h3>Individual Practice</h3>
+        <p>This week, intentionally serve someone outside your relational circle. Choose a concrete act you would not naturally do otherwise, and practice hidden service without drawing attention to yourself.</p>
+        <div class="section-nav"><a class="button" href="#top">Back to Top</a></div>
+      </div></section>
+    </main>
+  </div>
+
+  <footer class="footer wrap">
+    <p>Serving &mdash; A Practice Series &bull; <a href="https://www.yorkalliance.org">yorkalliance.org</a> &bull; <a href="catalog.html">View Practice Series Catalog</a></p>
+  </footer>
+
+  <script>
+    setupProgressTracking();
+    setupPrintButtons();
+    setupQuickTools();
+
+    function setupProgressTracking() {
+      document.querySelectorAll('.week-complete').forEach((checkbox) => {
+        const key = checkbox.getAttribute('data-week');
+        if (!key) return;
+        checkbox.checked = localStorage.getItem(key) === '1';
+        applyWeekStyle(checkbox, checkbox.checked);
+        checkbox.addEventListener('change', () => {
+          localStorage.setItem(key, checkbox.checked ? '1' : '0');
+          applyWeekStyle(checkbox, checkbox.checked);
+        });
+      });
+    }
+
+    function applyWeekStyle(checkbox, checked) {
+      const section = checkbox.closest('.section');
+      if (!section) return;
+      section.classList.toggle('is-complete', checked);
+    }
+
+    function setupPrintButtons() {
+      document.querySelectorAll('[data-print-week]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const week = btn.getAttribute('data-print-week');
+          document.body.classList.add(`print-${week}`);
+          window.print();
+          document.body.classList.remove(`print-${week}`);
+        });
+      });
+    }
+
+    function setupQuickTools() {
+      const jumpSelect = document.getElementById('quick-jump-select');
+      const jumpGo = document.getElementById('quick-jump-go');
+      const printSelect = document.getElementById('quick-print-select');
+      const printGo = document.getElementById('quick-print-go');
+      if (!jumpSelect || !jumpGo || !printSelect || !printGo) return;
+
+      const navigate = () => {
+        const target = jumpSelect.value;
+        const el = target ? document.querySelector(target) : null;
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      jumpGo.addEventListener('click', navigate);
+      jumpSelect.addEventListener('change', navigate);
+
+      printGo.addEventListener('click', () => {
+        const week = printSelect.value;
+        if (!week) return;
+        document.body.classList.add(`print-${week}`);
+        window.print();
+        document.body.classList.remove(`print-${week}`);
+      });
+    }
+  </script>
+</body>
+</html>
+
+
