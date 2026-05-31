@@ -25,10 +25,12 @@
     .button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700}
     .button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
     .layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start;padding-bottom:18px}
-    .mobile-jump{display:none;background:rgba(247,242,233,.95);border:1px solid var(--line);border-radius:12px;padding:10px;gap:8px;align-items:center}
-    .mobile-jump label{font-size:.86rem;font-weight:700;color:#5b5346}
-    .mobile-jump select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}
-    .mobile-jump button{padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font:inherit;font-weight:700}
+    .quick-tools{position:sticky;top:8px;z-index:6;display:flex;flex-wrap:wrap;background:rgba(247,242,233,.96);border:1px solid var(--line);border-radius:12px;padding:10px;gap:8px;align-items:center}
+    .quick-tools label{font-size:.86rem;font-weight:700;color:#5b5346}
+    .quick-tools select{flex:1;min-width:180px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit}
+    .quick-tools button{padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font:inherit;font-weight:700}
+    .reader-fallback{width:100%;font-size:.92rem;color:#5b5346}
+    .reader-fallback a{margin-right:8px}
     .toc-shell{position:sticky;top:14px;z-index:4}
     .toc{background:rgba(247,242,233,.94);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;padding:14px}
     .toc h2{font-size:1rem;font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2px 0 10px}
@@ -61,7 +63,7 @@
       body{font-size:17px}
       .hero-grid{grid-template-columns:1fr}
       .layout{grid-template-columns:1fr;gap:14px}
-      .mobile-jump{display:flex}
+      .quick-tools{top:0}
       .toc-shell{position:sticky;top:0}
       .toc{border-radius:0;border-left:0;border-right:0;padding:8px 10px;overflow-x:auto}
       .toc h2{display:none}
@@ -104,9 +106,9 @@
   </header>
 
   <div class="layout wrap">
-    <div class="mobile-jump" aria-label="Jump to section">
-      <label for="mobile-jump-select">Jump to</label>
-      <select id="mobile-jump-select">
+    <div class="quick-tools" aria-label="Jump and print tools">
+      <label for="quick-jump-select">Jump to</label>
+      <select id="quick-jump-select">
         <option value="#intro">Introduction</option>
         <option value="#how-to-use">How to Use</option>
         <option value="#week-1">Week 1</option>
@@ -114,7 +116,16 @@
         <option value="#week-3">Week 3</option>
         <option value="#week-4">Week 4</option>
       </select>
-      <button type="button" id="mobile-jump-go">Go</button>
+      <button type="button" id="quick-jump-go">Go</button>
+      <label for="quick-print-select">Print</label>
+      <select id="quick-print-select">
+        <option value="week-1">Week 1</option>
+        <option value="week-2">Week 2</option>
+        <option value="week-3">Week 3</option>
+        <option value="week-4">Week 4</option>
+      </select>
+      <button type="button" id="quick-print-go">Print Week</button>
+      <p class="reader-fallback">Open Printable Pages: <a href="week-1-print.html">Week 1</a><a href="week-2-print.html">Week 2</a><a href="week-3-print.html">Week 3</a><a href="week-4-print.html">Week 4</a></p>
     </div>
 
     <aside class="toc-shell">
@@ -407,9 +418,11 @@
     }
 
     function setupMobileJump() {
-      const select = document.getElementById("mobile-jump-select");
-      const go = document.getElementById("mobile-jump-go");
-      if (!select || !go) return;
+      const select = document.getElementById("quick-jump-select");
+      const go = document.getElementById("quick-jump-go");
+      const printSelect = document.getElementById("quick-print-select");
+      const printGo = document.getElementById("quick-print-go");
+      if (!select || !go || !printSelect || !printGo) return;
 
       const navigate = () => {
         const target = select.value;
@@ -420,6 +433,14 @@
 
       go.addEventListener("click", navigate);
       select.addEventListener("change", navigate);
+
+      printGo.addEventListener("click", () => {
+        const week = printSelect.value;
+        if (!week) return;
+        document.body.classList.add(`print-${week}`);
+        window.print();
+        document.body.classList.remove(`print-${week}`);
+      });
     }
 
     function readProgress() {
