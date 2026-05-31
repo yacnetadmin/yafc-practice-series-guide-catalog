@@ -62,11 +62,14 @@
     .section-nav{display:flex;justify-content:flex-end;margin-top:24px}
     .footer{padding:34px 0 60px;color:var(--muted);font-size:.95rem}
     @media (max-width:980px){
+      html,body{max-width:100%;overflow-x:hidden}
       body{font-size:17px}
+      .wrap{width:calc(100% - 20px)}
       .hero-grid{grid-template-columns:1fr}
       .layout{grid-template-columns:1fr;gap:14px}
       .layout main{grid-column:auto}
       .quick-tools{grid-column:auto;display:flex;flex-direction:column;align-items:stretch}
+      .quick-tools > *{max-width:100%}
       .quick-tools select,.quick-tools button{width:100%;min-width:0}
       .quick-tools .reader-fallback{width:100%}
       .quick-tools{top:0}
@@ -75,6 +78,8 @@
       .toc h2{display:none}
       .toc nav{display:flex;gap:8px}
       .toc a{display:inline-flex;white-space:nowrap;padding:8px 12px;background:#fff}
+      .card{padding:18px}
+      .card p,.card li,.card blockquote,.card a{overflow-wrap:anywhere;word-break:break-word}
       .week-tools{display:grid;grid-template-columns:1fr;gap:8px}
       .complete-pill,.print-week{width:100%;justify-content:center}
       .hero{padding-top:30px}
